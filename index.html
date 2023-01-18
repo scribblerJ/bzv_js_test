@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 테스트용 bz_tracking_id
+        const set_bz_tracking_id = 'temporary_id'
+
+        // local_storage 내용을 객체(obj)형태로 반환해주는 함수
+        function get_local_storage_in_obj(){
+            let queryString = localStorage.getItem('BuzzAd');
+            let obj = new URLSearchParams(queryString);
+            return obj
+        };
+        // 입력된 URL에 테스트용 bz_tracking_id를 붙여서 -> iframe 형태로 열어주는 함수
+        function show_iframe(){
+            let base_url = document.getElementById('base_url').value;
+            // let base_url = '/Users/toyyu/coding/bzv/bzv_js_test/adpage.html'
+            let params = new URLSearchParams(base_url.search);
+            params.set('bz_tracking_id',set_bz_tracking_id)
+            document.getElementById('iframe').src = base_url + '?' + params.toString();
+        };
+        // 이벤트 소스 ID 유효성 검토
+        function verfy_esi(saved_esi){
+            return true
+            // 일단 "버즈빌 연동 ID"가 아닌지 확인하자
+            // 형식을 확인해도 좋겠다
+            
+            // return saved_esi == 
+        };
+        // bz_tracking_id 유효성 검토
+        function verfy_bz_tracking_id(saved_bz_tracking_id){
+            return saved_bz_tracking_id == set_bz_tracking_id
+        }
+        // 입력된 URL에 JS 초기화 함수가 잘 동작하는 지 확인해주는 함수
+        function analyze_page_with_url(){
+            // 초기화 함수 실행
+            show_iframe();
+            // 저장된 bz_tracking_id 가져오기
+            let local_storage_obj = get_local_storage_in_obj();
+            saved_bz_tracking_id =  local_storage_obj.get('bz_tracking_id');
+            // 가져온 bz_tracking_id 검사하기
+            if (verfy_bz_tracking_id(saved_bz_tracking_id)){
+                alert('성공했습니다!!')
+                // verfy_esi(saved_esi)
+            }
+            else{
+                alert('실패했습니다 ㅠㅠ')
+            }
+            console.log(local_storage_obj)
+        };
+        
+    </script>
+
+    
+</head>
+<body>
+    <iframe id="iframe" style='width: 100%; height: 500px;' src="" frameborder="0"></iframe>
+    <label for="base_url">URL</ddlabel>
+    <input id="base_url" type="text">
+    <button onclick='analyze_page_with_url()'>테스트</button>
+</body>
+</html>

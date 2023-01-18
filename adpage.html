@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Buzzvil Pixel Code : 연동 완료 후 삭제 및 이동 불가 -->
+    <script async src="https://buzz-js.buzzvil.com/buzzvil-pixel-sdk/buzzvil-pixel.js"></script>
+    <script>
+    window.bzDataLayer = [];
+    function bzq() {window.bzDataLayer.push(arguments);}
+    bzq("init", '123456678');
+    </script>
+    <!-- Buzzvil Pixel Code End -->
+
+    <script>
+        function send_postback(){
+            // 액션완료 스크립트
+            window.bzq("track", { action: "bz_action_complete"});
+            // window.bzq("track", { action: "bz_action_complete", redirect_url: "필요시 여기서 리다이렉트 URL 값을 넣어주세요"});
+        };
+    </script>
+
+</head>
+<body>
+    <!-- file:///Users/toyyu/coding/index.html?bz_tracking_id=toy_test -->
+    <h1>[JS] 포스트백을 날려보자!</h1>
+    <button onclick='send_postback()'>전환 포스트백 발사!!</button>
+</body>
+</html>
